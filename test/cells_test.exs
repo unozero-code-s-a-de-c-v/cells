@@ -50,6 +50,7 @@ defmodule CellsTest do
 
   end
 
+  @tag timeout: 120000
   test "rand" do
     r = Cells.rand(Cells.seedUnit())
     s = Stream.take(r, 2)

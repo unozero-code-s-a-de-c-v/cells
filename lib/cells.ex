@@ -67,10 +67,12 @@ defmodule Cells do
   end
 
   def rand(row) do
-    Stream.unfold(row, fn
-      m ->  r = sha30(m)
-        { r, sha30(r)}
-    end)
+    r = Enum.to_list(sha30(row))
+    Stream.iterate(r, &sha30/1)
+  #    Stream.unfold(row, fn
+  #    m ->  r = sha30(m)
+  #      { r, sha30(r)}
+  #  end)
   end
 
   defp hamming_block(block) do

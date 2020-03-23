@@ -8,7 +8,7 @@ Benchee.run(
         "rand" => fn ->
         r = Cells.rand(Cells.seedUnit())
         s = Stream.take(r, 500)
-        s_list = Enum.to_list(s)
+        slist = Enum.to_list(s)
        # h = Cells.entropy(s)
       end },
       formatters: [

@@ -23,6 +23,7 @@ defmodule Cells.MixProject do
   defp deps do
     [
       {:benchee, "~> 1.0", only: :dev},
+      {:exprof, "~> 0.2.0"},
       {:benchee_html, "~> 1.0", only: :dev},
       {:elixir_math, "~>  0.1.2"}
       # {:dep_from_hexpm, "~> 0.3.0"},
