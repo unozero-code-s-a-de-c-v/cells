@@ -6,12 +6,9 @@ defmodule Cells do
 
   @doc """
   Hello world.
-
   ## Examples
-
       iex> Cells.hello()
       :world
-
   """
   def hello do
     :world
@@ -68,7 +65,7 @@ defmodule Cells do
 
   def rand(row) do
     r = Enum.to_list(sha30(row))
-    Stream.iterate(r, &sha30/1)
+    Stream.iterate(r,fn i -> Enum.to_list(sha30(i)) end)
   #    Stream.unfold(row, fn
   #    m ->  r = sha30(m)
   #      { r, sha30(r)}
