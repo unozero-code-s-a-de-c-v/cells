@@ -66,6 +66,8 @@ defmodule Cells do
    center
   end
 
+ 
+  
   def rand(row) do
     r = Enum.to_list(sha30(row))
     Stream.iterate(r, &sha30/1)

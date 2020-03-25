@@ -53,7 +53,7 @@ defmodule CellsTest do
   @tag timeout: 120000
   test "rand" do
     r = Cells.rand(Cells.seedUnit())
-    s = Stream.take(r, 2)
+    s = Stream.take(r, 3)
     s0 = Enum.at(s,0)
     assert Enum.count(s0) == 128
     s1 = Enum.at(s,1)
