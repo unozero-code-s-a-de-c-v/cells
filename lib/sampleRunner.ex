@@ -4,12 +4,12 @@ defmodule SampleRunner do
   @doc "analyze with profile macro"
   def do_analyze do
     profile do
-      r = Cells.rand(Cells.seedUnit())
-      s = Stream.take(r, 3)
-      rlist = Enum.to_list(s)
-      IO.puts("List length: #{Enum.count(rlist)}")
-      
-      Enum.map(rlist, fn x -> Cells.entropy(x) end)
+       r = Stream.take(Cells.rand(Cells.seedUnit()),100)
+       randlist = Enum.to_list(r)
+       hexList = Enum.map(randlist, fn x ->
+          "[<:#{Cells.vec_to_hex(x)}:>]"
+       end)
+        Enum.map(hexList, fn x -> IO.puts(x) end)
     end
   end
 
@@ -20,3 +20,4 @@ defmodule SampleRunner do
     IO.inspect "total = #{total_percent}"
   end
 end
+
