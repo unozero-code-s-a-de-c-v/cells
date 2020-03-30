@@ -15,6 +15,7 @@ defmodule Cells do
     :world
   end
 
+
   def seedUnit() do
     stream_seed = Stream.unfold(0, fn
       128 -> nil
@@ -36,7 +37,6 @@ defmodule Cells do
 
   #  Rule 30 : A XOR (B OR C)
   #  x(n+1,i) = x(n,i-1) xor [x(n,i) or x(n,i+1)]
-
   def r30(three) do
     case three do
         {0,0,0} -> 0
@@ -98,14 +98,44 @@ defmodule Cells do
     end )
     Enum.join(nibble_hex)
   end
+@doc """
+Convert Vector to Binary
+## Examples
+      iex> Cells.vec_to_binary(Cells.seedUnit())
+      <<0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0>>
+"""
+  def vec_to_binary(v) do
+    << v[0]:: 1,  v[1]:: 1,  v[2]:: 1,  v[3]:: 1,  v[4]:: 1,  v[5]:: 1,  v[6]:: 1,  v[7]:: 1,
+       v[8]:: 1,  v[9]:: 1,  v[10]:: 1, v[11]:: 1, v[12]:: 1, v[13]:: 1, v[14]:: 1, v[15]:: 1,
+       v[16]:: 1, v[17]:: 1, v[18]:: 1, v[19]:: 1, v[20]:: 1, v[21]:: 1, v[22]:: 1, v[23]:: 1,
+       v[24]:: 1, v[25]:: 1, v[26]:: 1, v[27]:: 1, v[28]:: 1, v[29]:: 1, v[30]:: 1, v[31]:: 1,
+       v[32]:: 1, v[33]:: 1, v[34]:: 1, v[35]:: 1, v[36]:: 1, v[37]:: 1, v[38]:: 1, v[39]:: 1,
+       v[40]:: 1, v[41]:: 1, v[42]:: 1, v[43]:: 1, v[44]:: 1, v[45]:: 1, v[46]:: 1, v[47]:: 1,
+       v[48]:: 1, v[49]:: 1, v[50]:: 1, v[51]:: 1, v[52]:: 1, v[53]:: 1, v[54]:: 1, v[55]:: 1,
+       v[56]:: 1, v[57]:: 1, v[58]:: 1, v[59]:: 1, v[60]:: 1, v[61]:: 1, v[62]:: 1, v[63]:: 1,
+       v[64]:: 1, v[65]:: 1, v[66]:: 1, v[67]:: 1, v[68]:: 1, v[69]:: 1, v[70]:: 1, v[71]:: 1,
+       v[72]:: 1, v[73]:: 1, v[74]:: 1 ,v[75]:: 1, v[76]:: 1, v[77]:: 1, v[78]:: 1, v[79]:: 1,
+       v[80]:: 1, v[81]:: 1, v[82]:: 1, v[83]:: 1, v[84]:: 1, v[85]:: 1, v[86]:: 1, v[87]:: 1,
+       v[88]:: 1, v[89]:: 1, v[90]:: 1, v[91]:: 1, v[92]:: 1, v[93]:: 1, v[94]:: 1, v[95]:: 1,
+       v[96]:: 1, v[97]:: 1, v[98]:: 1, v[99]:: 1, v[100]:: 1, v[101]:: 1, v[102]:: 1, v[103]:: 1,
+       v[104]:: 1, v[105]:: 1, v[106]:: 1, v[107]:: 1, v[108]:: 1, v[109]:: 1, v[110]:: 1, v[111]:: 1,
+       v[112]:: 1, v[113]:: 1, v[114]:: 1, v[115]:: 1, v[116]:: 1, v[117]:: 1, v[118]:: 1, v[119]:: 1,
+       v[120]:: 1, v[121]:: 1, v[122]:: 1, v[123]:: 1, v[124]:: 1, v[125]:: 1, v[126]:: 1, v[127]:: 1>>
+  end
+
+  def binary_to_vec(b) do
+    binary_list = :binary.bin_to_list b
+    Vector.from_list(binary_list)
+  end
+
+  def binary_to_hex(b) do
+    Base.encode16(b)
+  end
 
   def rand(row) do
     Stream.iterate(sha30(row),fn i -> sha30(i) end)
   end
 
-  defp hamming_block(block) do
-    Enum.reduce(block, 0, fn bit, acc -> acc + bit end)
-  end
 
   def entropy(v) do
     num_bits= Vector.length(v)
@@ -119,7 +149,7 @@ defmodule Cells do
     else
       0.0 -  (prob_1 * ElixirMath.log2(prob_1) + prob_0 * ElixirMath.log2(prob_0))
     end
-    IO.puts("Entropy: #{h} hamming_weight: #{hamming_weight}, num_bits: #{num_bits} prob_1:#{prob_1}, prob_0: #{prob_0}")
+    #IO.puts("Entropy: #{h} hamming_weight: #{hamming_weight}, num_bits: #{num_bits} prob_1:#{prob_1}, prob_0: #{prob_0}")
     h
   end
 
