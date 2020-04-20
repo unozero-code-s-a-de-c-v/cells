@@ -91,6 +91,12 @@ defmodule Cells do
     end
   end
 
+  def hex_to_vec(h) do
+    char_pairs = for i <- 0..String.length(h)-2, do: String.slice(h, i..i+1)
+    h = Stream.map(char_pairs, fn x -> Base.decode16!(x) end)
+    Vector.from_list(Enum.to_list(h))
+  end
+
   def vec_to_hex(v) do
     nibbles = Stream.chunk_every(v, 4)
     nibble_hex = Stream.map(nibbles, fn
@@ -130,6 +136,10 @@ Convert Vector to Binary
 
   def binary_to_hex(b) do
     Base.encode16(b)
+  end
+
+  def hex_to_binary(h) do
+    Base.decode16!(h)
   end
 
   def rand(row) do
